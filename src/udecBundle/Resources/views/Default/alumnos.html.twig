@@ -1,0 +1,15 @@
+{% extends 'udecBundle::main.html.twig' %}
+{% block title %} Alumnos {% endblock %}
+{% block contenido %}
+	<h1>Listado de alumnos</h1>
+
+	{% for alumno in alumnos %}
+		<a href="{{ path('udec_alumno',{'matricula':alumno.matricula})}}" class="fila {{cycle(['par','impar'], loop.index)}}">
+			{{alumno.matricula}} - {{alumno.nombre}} <br>
+		</a>
+	{% endfor %}
+{% endblock %}
+{% block sidebar %}
+	aqui va una imagen
+	{{ parent() }}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'udecBundle::main.html.twig' %}
+{% block title %} Estudiantes {% endblock %}
+{% block body %}
+	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+	{{ form_start(form, {'action': path('udec_Estudiante_guardar'), 'method': 'POST'}) }}
+	
+	<legend>Nuevo Estudiante</legend>
+	<div class="form-group">
+		{{ form_errors(form) }}
+		<div class="from-control">
+			{{ form_label(form.Codigo) }}
+			{{ form_errors(form.Codigo) }}
+			{{ form_widget(form.Codigo, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+		<div class="from-control">
+			{{ form_label(form.Cedula) }}
+			{{ form_errors(form.Cedula) }}
+			{{ form_widget(form.Cedula, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+
+		<div class="from-control">
+			{{ form_label(form.Nombre) }}
+			{{ form_errors(form.Nombre) }}
+			{{ form_widget(form.Nombre, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+
+		<div class="from-control">
+			{{ form_label(form.Apellido) }}
+			{{ form_errors(form.Apellido) }}
+			{{ form_widget(form.Apellido, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+
+		{{ form_widget(form.crear, { 'attr': {'class': 'btn btn-primary'} }) }}
+
+	</div>
+
+	{{ form_end(form) }}
+{% endblock %}

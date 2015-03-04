@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Estudiante list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('estudiante_show', { 'id': entity.codigo }) }}">{{ entity.codigo }}</a></td>
+                <td>{{ entity.cedula }}</td>
+                <td>{{ entity.nombre }}</td>
+                <td>{{ entity.apellido }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('estudiante_show', { 'id': entity.codigo }) }}">show</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endblock %}

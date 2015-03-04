@@ -1,0 +1,73 @@
+{% extends 'udecBundle::main.html.twig' %}
+{% block title %} Proyectos {% endblock %}
+{% block body %}
+
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Cod. Proyecto</th>
+                <th>Titilo</th>
+                <th>Fecha_inicio</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+            <tr>
+                <td>{{ proyecto.cod_proyecto }}</td>
+                <td>{{ proyecto.titulo }}</td>
+                <td>{{ proyecto.fechaInicio | date('Y-m-d') }}</td>
+                <td>{{ proyecto.estado }}</td>
+                <td><a href="{{ path('udec_proyecto',{'cod_proyecto':proyecto.cod_proyecto}) }}">Detalles</a></td>  
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    {{ form_start(form, {'action': path('udec_proyecto_guardar'), 'method': 'POST'}) }}
+    
+    <legend>Nuevo proyecto</legend>
+    <div class="form-group">
+        {{ form_errors(form) }}
+        <div class="from-control">
+            {{ form_label(form.cod_proyecto) }}
+            {{ form_errors(form.cod_proyecto) }}
+            {{ form_widget(form.cod_proyecto, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="from-control">
+            {{ form_label(form.titulo) }}
+            {{ form_errors(form.titulo) }}
+            {{ form_widget(form.titulo, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="from-control">
+            {{ form_label(form.resumen) }}
+            {{ form_errors(form.resumen) }}
+            {{ form_widget(form.resumen, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="from-control">
+            {{ form_label(form.fechaInicio) }}
+            {{ form_errors(form.fechaInicio) }}
+            {{ form_widget(form.fechaInicio, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="from-control">
+            {{ form_label(form.fechaAprovaccion) }}
+            {{ form_errors(form.fechaAprovaccion) }}
+            {{ form_widget(form.fechaAprovaccion, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="from-control">
+            {{ form_label(form.estado) }}
+            {{ form_errors(form.estado) }}
+            {{ form_widget(form.estado, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    {{ form_widget(form.Guardar, { 'attr': {'class': 'btn btn-primary'} }) }}
+    {{ form_end(form) }}
+</div>
+
+
+{% endblock %}

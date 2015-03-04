@@ -1,0 +1,123 @@
+{% extends 'udecBundle::main.html.twig' %}
+{% block title %} Estudiantes {% endblock %}
+{% block body %}
+
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Proyecto</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for estudiante in estudiantes %}
+			<tr>
+				<td>{{ estudiante.codigo }}</td>
+				<td>{{ estudiante.nombre }} {{ estudiante.apellido }}</td>
+				<td>{{ estudiante.proyecto }}</td>
+				<td><a href="{{ path('udec_estudiante',{'codigo':estudiante.codigo}) }}">Detalles</a></td>	
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+	{{ form_start(form, {'action': path('udec_Estudiante_guardar'), 'method': 'POST'}) }}
+	
+	<legend>Nuevo Estudiante</legend>
+	<div class="form-group">
+		{{ form_errors(form) }}
+		<div class="from-control">
+			{{ form_label(form.codigo) }}
+			{{ form_errors(form.codigo) }}
+			{{ form_widget(form.codigo, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+		<div class="from-control">
+			{{ form_label(form.cedula) }}
+			{{ form_errors(form.cedula) }}
+			{{ form_widget(form.cedula, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+
+		<div class="from-control">
+			{{ form_label(form.nombre) }}
+			{{ form_errors(form.nombre) }}
+			{{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+
+		<div class="from-control">
+			{{ form_label(form.apellido) }}
+			{{ form_errors(form.apellido) }}
+			{{ form_widget(form.apellido, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+		<div class="from-control">
+			{{ form_label(form.proyecto) }}
+			{{ form_errors(form.proyecto) }}
+			{{ form_widget(form.proyecto, { 'attr': {'class': 'form-control'} }) }}
+		</div>
+		
+		<div class="tags" data-prototype="{{ form_widget(form.telefonos.vars.prototype)|e }}">
+			{% for tag in form.telefonos %}
+            	<div class="form-control">{{ form_row(tag.telefono) }}</div class="form-control">
+        	{% endfor %}
+		</div>
+
+	</div>
+	{{ form_widget(form.Guardar, { 'attr': {'class': 'btn btn-primary'} }) }}
+	{{ form_end(form) }}
+	</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+            {{ parent() }}
+    <script>
+    	function addTagForm($collectionHolder, $newLinkLi) {
+		    // Get the data-prototype explained earlier
+		    var prototype = $collectionHolder.data('prototype');
+
+		    // get the new index
+		    var index = $collectionHolder.data('index');
+
+		    // Replace '__name__' in the prototype's HTML to
+		    // instead be a number based on how many items we have
+		    var newForm = prototype.replace(/__name__/g, index);
+
+		    // increase the index with one for the next item
+		    $collectionHolder.data('index', index + 1);
+
+		    // Display the form in the page in an li, before the "Add a tag" link li
+		    var $newFormLi = $('<div></div>').append(newForm);
+		    $newLinkLi.before($newFormLi);
+		}
+
+    	var $collectionHolder;
+
+		// setup an "add a tag" link
+		var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
+		var $newLinkLi = $('<div></div>').append($addTagLink);
+
+		jQuery(document).ready(function() {
+		    // Get the ul that holds the collection of tags
+		    $collectionHolder = $('div.tags');
+
+		    // add the "add a tag" anchor and li to the tags ul
+		    $collectionHolder.append($newLinkLi);
+
+		    // count the current form inputs we have (e.g. 2), use that as the new
+		    // index when inserting a new item (e.g. 2)
+		    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+		    $addTagLink.on('click', function(e) {
+		        // prevent the link from creating a "#" on the URL
+		        e.preventDefault();
+
+		        // add a new tag form (see next code block)
+		        addTagForm($collectionHolder, $newLinkLi);
+		    });
+		});
+    </script>
+{% endblock %}

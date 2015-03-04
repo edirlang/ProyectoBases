@@ -1,0 +1,29 @@
+udec_ejemplos:
+    path:     /ejemplos
+    defaults: { _controller: udecBundle:Default:ejemplos }
+
+udec_estudiantes:
+    path:     /estudiantes
+    defaults: { _controller: udecBundle:Estudiantes:index }
+udec_estudiante:
+    path:     /estudiante/{codigo}
+    defaults: { _controller: udecBundle:Estudiantes:estudiante }
+udec_Estudiante_nuevo:
+    path:     /nuevo
+    defaults: { _controller: udecBundle:Estudiantes:nuevo }
+
+udec_Estudiante_guardar:
+    path:     /Estudiante/guardar
+    defaults: { _controller: udecBundle:Estudiantes:guardar }
+
+udec_proyectos:
+    path:     /proyectos
+    defaults: { _controller: "udecBundle:Proyectos:index" }
+
+udec_proyecto:
+    path:     /proyecto/{cod_proyecto}
+    defaults: { _controller: "udecBundle:Proyectos:proyecto" }
+
+udec_proyecto_guardar:
+    path:     /Proyecto/guardar
+    defaults: { _controller: udecBundle:Proyectos:guardar }
